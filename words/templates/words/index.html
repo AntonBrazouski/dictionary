@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>index.html</h1>
+    {% for item in query %}
+    <ul>
+      <a href="{% url 'words:detail' pk=item.id %}">{{ item }} </a>
+    </ul>
+    {% endfor %}
+  </body>
+</html>

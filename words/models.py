@@ -23,9 +23,18 @@ class Token(models.Model):
         choices=WORD_TYPE_CHOICES,
         default= NOUN
     )
-x
+
     def __str__(self):
         return self.word
+
+    def has_no_meaning(self):
+        return len(self.meaning_set.all()) == 0
+
+    def has_one_meaning(self):
+        return 0 < len(self.meaning_set.all()) < 2 
+
+    def has_many_meanings(self):
+        return len(self.meaning_set.all()) > 1
 
 
 class Meaning(models.Model):
