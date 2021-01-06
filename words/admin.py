@@ -1,7 +1,15 @@
 from django.contrib import admin
 
-from .models import Meaning, Token
+from .models import Token
 
 
 # Register your models here.
-admin.site.register([Token, Meaning])
+# class MeaningInline(admin.StackedInline):
+#     model = Meaning
+#     extra = 1
+
+class TokenAdmin(admin.ModelAdmin):
+    fields = ['word', 'type']
+    # inlines = [MeaningInline]
+
+admin.site.register([Token,])

@@ -5,30 +5,32 @@
     <title></title>
   </head>
   <body>
+
     <h1>detail.html</h1>
-
-    {% if not error %}
-      query={{ query }}
       <ul>
-
       <li>word = {{query.word}}</li>
       <li>pronunciation = {{query.pronunciation}}</li>
       <li>type = {{query.type}}</li>
+      {% if query.has_one_meaning %}
+        The word has one meaning:
+      {% elif query.has_many_meanings %}
+        The word has {{query.meaning_set.all|length}} meanings:
+      {% endif %}
+
+      <!-- <h3>The word has {{query.meaning_set.all|length}} meaning{{query.meaning_set.all|length|pluralize}}:</h3> -->
 
       {% if query.meaning_set.all %}
         {% for item in query.meaning_set.all %}
         <ul>
+
+
           <li>{{ item }}</li>
         </ul>
         {% endfor %}
       {% else %}
         <p>No meanings are available</p>
       {% endif %}
-
     </ul>
-    {% else %}
-      {{ error }}
-    {% endif %}
 
   </body>
 </html>
