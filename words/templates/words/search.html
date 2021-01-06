@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>search.html</h1>
+    <form action="{% url 'words:search'%}" method="get">
+      {% csrf_token %}
+      <input type="edit" name="search" value="" id='search_bar'/>
+      <input type="submit" value="search">
+    </form>
+
+    {% if not error %}
+      {% if query %}
+        <h2> <a href="{% url 'words:detail' pk=query.id %}">{{ query }} </a></h2>
+        <ul>
+          <li>{{ query.meaning_set.all|first }}</li>
+        </ul>
+      {% endif %}
+      {% if query_set %}
+        <ul>
+          {% for item in query_set %}
+          <li><a href="{% url 'words:detail' pk=item.id %}">{{ item }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% else %}
+      <p>{{ error }}</p>
+    {% endif %}
+  </body>
+</html>
