@@ -6,10 +6,14 @@
   </head>
   <body>
     <h1>index.html</h1>
-    {% for item in query %}
-    <ul>
-      <a href="{% url 'words:detail' pk=item.id %}">{{ item }} </a>
-    </ul>
-    {% endfor %}
+    {% if query %}
+      {% for item in query %}
+      <ul>
+        <a href="{% url 'words:detail' pk=item.id %}">{{ item }} </a>
+      </ul>
+      {% endfor %}
+    {% else %}
+      No words are available
+    {% endif %}
   </body>
 </html>

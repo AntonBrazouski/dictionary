@@ -1,27 +1,24 @@
 from django.shortcuts import render, HttpResponse
+from django.views import generic
 
 from .models import Meaning, Token
 
 
 
 
-def index(request):
-    query = Token.objects.all()[:2]
-    context = {'query': query }
+class IndexView(generic.ListView):
+    template_name = 'words/index.html'
+    context_object_name = 'query'
 
-    return render(request, 'words/index.html', context)
+    def get_queryset(self):
+        return Token.objects.all()[:2]
 
 
-def detail(request, pk):
-    query = ""
-    error = None
-    try:
-        query = Token.objects.get(pk=pk)
-    except:
-        error = "Does not exist"
-    context = {'query': query, 'error': error}
+class DetailView(generic.DeleteView):
+    model = Token
+    context_object_name = 'query'
+    template_name= 'words/detail.html'
 
-    return render(request, 'words/detail.html', context)
 
 
 def search(request):
